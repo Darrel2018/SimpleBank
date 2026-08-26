@@ -1,0 +1,21 @@
+{% extends "base/base.html" %}
+
+{% block title %}
+SimpleBank
+{% endblock %}
+
+{% block content %}
+<h1>SimpleBank</h1>
+
+<p>HTMX is ready.</p>
+
+<button
+    hx-get="/hello/"
+    hx-target="#message"
+    hx-swap="innerHTML">
+    Test HTMX
+</button>
+
+<div id="message"></div>
+
+{% endblock %}
