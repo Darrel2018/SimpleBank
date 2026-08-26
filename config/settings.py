@@ -32,6 +32,11 @@ DEBUG = os.getenv("DEBUG") == "True"
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
 
 
+# MongoDB
+MONGODB_URI = os.getenv("MONGODB_URI")
+MONGODB_NAME = os.getenv("MONGODB_NAME")
+
+
 # Application definition
 
 INSTALLED_APPS = [
