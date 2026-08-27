@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import RegistrationForm
+from .services import create_customer
 
 
 def login_page(request):
@@ -7,12 +8,18 @@ def login_page(request):
 
 
 def register_page(request):
+
     if request.method == "POST":
         form = RegistrationForm(request.POST)
 
         if form.is_valid():
-            # Registration logic will go here later.
-            return redirect("verify")   # Temporary redirect for now.
+            try:
+                create_customer(form.cleaned_data)
+
+                return redirect("verify")
+
+            except ValueError as error:
+                form.add_error("email", str(error))
 
     else:
         form = RegistrationForm()

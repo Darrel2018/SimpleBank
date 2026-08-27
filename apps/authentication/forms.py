@@ -58,14 +58,19 @@ class RegistrationForm(forms.Form):
         return last_name.title()
 
     def clean_phone(self):
-        phone = self.cleaned_data["phone"].strip()
+        phone = self.cleaned_data["phone"].strip().replace(" ", "")
 
-        phone_pattern = r"^\+?[0-9]{10,15}$"
+        if phone.startswith("0"):
+            phone = "+27" + phone[1:]
+        elif phone.startswith("27"):
+            phone = "+" + phone
+        elif not phone.startswith("+"):
+            raise ValidationError("Enter a valid South African phone number.")
+
+        phone_pattern = r"^\+[1-9][0-9]{8,14}$"
 
         if not re.match(phone_pattern, phone):
-            raise ValidationError(
-                "Enter a valid phone number."
-            )
+            raise ValidationError("Enter a valid phone number.")
 
         return phone
 
