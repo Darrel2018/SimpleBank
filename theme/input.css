@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+/* Tell Tailwind where your Django templates live */
+@source "../templates/";
+@source "../apps/";

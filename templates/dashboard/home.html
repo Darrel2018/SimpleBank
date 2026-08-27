@@ -1,21 +1,22 @@
 {% extends "base/base.html" %}
 
-{% block title %}
-SimpleBank
-{% endblock %}
+{% block title %}SimpleBank{% endblock %}
 
 {% block content %}
-<h1>SimpleBank</h1>
+<div class="min-h-screen flex items-center justify-center bg-slate-100">
+    <div class="bg-white rounded-2xl shadow-xl p-10 text-center">
+        <h1 class="text-4xl font-bold text-emerald-700 mb-3">
+            🎉 Tailwind is Working!
+        </h1>
 
-<p>HTMX is ready.</p>
+        <p class="text-slate-600">
+            Django + HTMX + MongoDB + Tailwind is ready.
+        </p>
 
-<button
-    hx-get="/hello/"
-    hx-target="#message"
-    hx-swap="innerHTML">
-    Test HTMX
-</button>
-
-<div id="message"></div>
-
+        <a href="/auth/login/"
+           class="inline-block mt-6 bg-emerald-700 hover:bg-emerald-800 text-white px-6 py-3 rounded-lg font-medium transition">
+            Go to Login
+        </a>
+    </div>
+</div>
 {% endblock %}

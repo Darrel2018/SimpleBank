@@ -1,0 +1,27 @@
+{% extends "authentication/auth_layout.html" %}
+
+{% block title %}Verify OTP | SimpleBank{% endblock %}
+
+{% block auth_subtitle %}
+Enter the six-digit verification code.
+{% endblock %}
+
+{% block auth_content %}
+
+<form>
+
+    <label>Verification Code</label>
+    <input type="text" maxlength="6" placeholder="123456">
+
+    <button type="submit">
+        Verify Code
+    </button>
+
+</form>
+
+<p>
+    Didn't receive a code?
+    <a href="#">Resend Code</a>
+</p>
+
+{% endblock %}

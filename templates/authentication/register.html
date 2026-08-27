@@ -1,0 +1,87 @@
+{% extends "authentication/auth_layout.html" %}
+
+{% block title %}Register | SimpleBank{% endblock %}
+
+{% block auth_subtitle %}
+Create your SimpleBank account.
+{% endblock %}
+
+{% block auth_content %}
+
+<form method="post">
+
+    {% csrf_token %}
+
+    {% if form.non_field_errors %}
+    <div class="mb-4 rounded-lg bg-red-50 border border-red-200 p-3 text-sm text-red-700">
+        {{ form.non_field_errors }}
+    </div>
+    {% endif %}
+
+    {{ form.first_name.label_tag }}
+    {{ form.first_name }}
+    {% if form.first_name.errors %}
+    <p class="text-sm text-red-600 mt-1">
+        {{ form.first_name.errors }}
+    </p>
+    {% endif %}
+
+    {{ form.last_name.label_tag }}
+    {{ form.last_name }}
+    {% if form.last_name.errors %}
+    <p class="text-sm text-red-600 mt-1">
+        {{ form.last_name.errors }}
+    </p>
+    {% endif %}
+
+    {{ form.email.label_tag }}
+    {{ form.email }}
+    {% if form.email.errors %}
+    <p class="text-sm text-red-600 mt-1">
+        {{ form.email.errors }}
+    </p>
+    {% endif %}
+
+    {{ form.phone.label_tag }}
+    {{ form.phone }}
+    {% if form.phone.errors %}
+    <p class="text-sm text-red-600 mt-1">
+        {{ form.phone.errors }}
+    </p>
+    {% endif %}
+
+    {{ form.password.label_tag }}
+    {{ form.password }}
+    {% if form.password.errors %}
+    <p class="text-sm text-red-600 mt-1">
+        {{ form.password.errors }}
+    </p>
+    {% endif %}
+
+    {{ form.confirm_password.label_tag }}
+    {{ form.confirm_password }}
+    {% if form.confirm_password.errors %}
+    <p class="text-sm text-red-600 mt-1">
+        {{ form.confirm_password.errors }}
+    </p>
+    {% endif %}
+
+    <label>
+        {{ form.accept_terms }}
+        I agree to the SimpleBank Terms of Service.
+    </label>
+
+    <button type="submit">
+        Create Account
+    </button>
+
+</form>
+
+<p class="mt-6 text-center">
+    Already have an account?
+    <a href="/auth/login/" class="text-emerald-700 font-medium">
+        Sign In
+    </a>
+</p>
+
+{% endblock %}
