@@ -8,18 +8,21 @@ Secure sign in to your SimpleBank account.
 
 {% block auth_content %}
 
-<form>
+<form method="post" autocomplete="on">
+    {% csrf_token %}
 
-    <label>Email Address</label>
-    <input type="email" placeholder="you@example.com">
+    {{ form.email }}
+    {{ form.password }}
 
-    <label>Password</label>
-    <input type="password" placeholder="Password">
+    {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+            <p>{{ error }}</p>
+        {% endfor %}
+    {% endif %}
 
     <button type="submit">
-        Sign In
+        Continue
     </button>
-
 </form>
 
 <p>

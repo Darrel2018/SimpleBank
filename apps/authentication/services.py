@@ -1,8 +1,10 @@
 from datetime import datetime, UTC
 
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import check_password
 
 from config.database.mongodb import db
+
 
 
 def create_customer(form_data):
@@ -42,3 +44,31 @@ def create_customer(form_data):
     result = db.users.insert_one(user)
 
     return result.inserted_id
+
+def authenticate_customer(email, password):
+    """
+    Verify a customer's email and password.
+
+    Returns:
+        User document if authentication succeeds.
+
+    Raises:
+        ValueError if authentication fails.
+    """
+
+    email = email.lower().strip()
+
+    user = db.users.find_one({"email": email})
+
+    if not user:
+        raise ValueError("Invalid email or password.")
+
+    password_matches = check_password(
+        password,
+        user["password_hash"]
+    )
+
+    if not password_matches:
+        raise ValueError("Invalid email or password.")
+
+    return user

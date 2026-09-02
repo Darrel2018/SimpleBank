@@ -1,10 +1,37 @@
 from django.shortcuts import render, redirect
 from .forms import RegistrationForm
+from .forms import LoginForm
 from .services import create_customer
+from .services import authenticate_customer
 
 
 def login_page(request):
-    return render(request, "authentication/login.html")
+
+    if request.method == "POST":
+        form = LoginForm(request.POST)
+
+        if form.is_valid():
+            try:
+                user = authenticate_customer(
+                    form.cleaned_data["email"],
+                    form.cleaned_data["password"],
+                )
+
+                request.session["pending_user_id"] = str(user["_id"])
+
+                return redirect("verify")
+
+            except ValueError as error:
+                form.add_error(None, str(error))
+
+    else:
+        form = LoginForm()
+
+    return render(
+        request,
+        "authentication/login.html",
+        {"form": form},
+    )
 
 
 def register_page(request):
