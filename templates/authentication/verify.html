@@ -1,27 +1,100 @@
-{% extends "authentication/auth_layout.html" %}
+{% extends "base/base.html" %}
 
-{% block title %}Verify OTP | SimpleBank{% endblock %}
+{% block title %}Verify OTP{% endblock %}
 
-{% block auth_subtitle %}
-Enter the six-digit verification code.
-{% endblock %}
+{% block content %}
 
-{% block auth_content %}
+<div class="min-h-screen bg-gray-100 flex items-center justify-center p-6">
 
-<form>
+    <div class="w-full max-w-md bg-white rounded-2xl shadow-xl p-8">
 
-    <label>Verification Code</label>
-    <input type="text" maxlength="6" placeholder="123456">
+        <h1 class="text-3xl font-bold text-center mb-2">
+            Verify Your Identity
+        </h1>
 
-    <button type="submit">
-        Verify Code
-    </button>
+        <p class="text-gray-500 text-center mb-8">
+            Enter the 6-digit verification code.
+        </p>
 
-</form>
+        <form method="post" class="space-y-6">
+            {% csrf_token %}
 
-<p>
-    Didn't receive a code?
-    <a href="#">Resend Code</a>
-</p>
+            <div class="flex flex-col items-center text-center">
+                <label class="block text-sm font-medium mb-2">
+                    One-Time Password
+                </label>
+
+                <div class="w-full">
+                    {{ form.otp }}
+                </div>
+
+                {% if form.otp.errors %}
+                <p class="text-red-500 text-sm mt-2">
+                    {{ form.otp.errors.0 }}
+                </p>
+                {% endif %}
+            </div>
+
+            {% if form.non_field_errors %}
+            <div class="text-red-500 text-sm">
+                {{ form.non_field_errors }}
+            </div>
+            {% endif %}
+
+            <button type="submit"
+                class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition">
+                Verify OTP
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<!-- Demo OTP Modal -->
+<div id="otp-modal" class="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-8 text-center">
+
+        <div class="text-green-600 text-5xl mb-4">
+            🛡️
+        </div>
+
+        <h2 class="text-2xl font-bold mb-3">
+            Demo OTP Generated
+        </h2>
+
+        <p class="text-gray-600 text-sm mb-6">
+            This project uses a simulated OTP for demonstration purposes.
+            A production banking app would deliver this code securely via SMS,
+            email, or an authenticator app.
+        </p>
+
+        <div class="bg-gray-100 rounded-xl py-4 mb-6">
+
+            <p class="text-sm text-gray-500 mb-2">
+                Your Demo OTP
+            </p>
+
+            <p class="text-4xl tracking-[0.3em] font-bold text-blue-600">
+                {{ demo_otp }}
+            </p>
+
+        </div>
+
+        <button id="close-modal" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold">
+            Continue
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+    document.getElementById("close-modal").addEventListener("click", function () {
+        document.getElementById("otp-modal").classList.add("hidden");
+    });
+</script>
 
 {% endblock %}

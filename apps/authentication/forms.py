@@ -136,3 +136,32 @@ class LoginForm(forms.Form):
 
     def clean_email(self):
         return self.cleaned_data["email"].strip().lower()
+
+class OTPForm(forms.Form):
+    otp = forms.CharField(
+        max_length=6,
+        min_length=6,
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "000000",
+                "autocomplete": "one-time-code",
+                "inputmode": "numeric",
+
+                # Tailwind styling
+                "class": (
+                    "w-full text-center text-3xl font-bold tracking-[0.5em] "
+                    "rounded-lg border border-gray-300 py-4 px-4 "
+                    "focus:outline-none focus:ring-2 focus:ring-blue-500 "
+                    "focus:border-blue-500"
+                ),
+            }
+        ),
+    )
+
+    def clean_otp(self):
+        otp = self.cleaned_data["otp"].strip()
+
+        if not otp.isdigit():
+            raise forms.ValidationError("OTP must contain only numbers.")
+
+        return otp
