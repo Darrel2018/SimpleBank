@@ -1,8 +1,6 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from apps.authentication.permissions import login_required
 
-def home(request):
+@login_required
+def dashboard_home(request):
     return render(request, "dashboard/home.html")
-
-def hello(request):
-    return HttpResponse("<strong>Hello from HTMX!</strong>")

@@ -1,22 +1,29 @@
 {% extends "base/base.html" %}
 
-{% block title %}SimpleBank{% endblock %}
+{% block title %}Dashboard{% endblock %}
 
 {% block content %}
-<div class="min-h-screen flex items-center justify-center bg-slate-100">
-    <div class="bg-white rounded-2xl shadow-xl p-10 text-center">
-        <h1 class="text-4xl font-bold text-emerald-700 mb-3">
-            🎉 Tailwind is Working!
+
+<div class="min-h-screen bg-gray-100 flex items-center justify-center">
+
+    <div class="bg-white rounded-2xl shadow-xl p-10 text-center max-w-xl">
+
+        <h1 class="text-4xl font-bold text-blue-600 mb-4">
+            Welcome to SimpleBank
         </h1>
 
-        <p class="text-slate-600">
-            Django + HTMX + MongoDB + Tailwind is ready.
+        <p class="text-gray-600 mb-8">
+            You have successfully completed multi-factor authentication.
         </p>
 
-        <a href="/auth/login/"
-           class="inline-block mt-6 bg-emerald-700 hover:bg-emerald-800 text-white px-6 py-3 rounded-lg font-medium transition">
-            Go to Login
-        </a>
+        <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+            <p class="text-green-700 font-medium">
+                Authentication Successful
+            </p>
+        </div>
+
     </div>
+
 </div>
+
 {% endblock %}

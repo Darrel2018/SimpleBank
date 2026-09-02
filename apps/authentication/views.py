@@ -84,8 +84,7 @@ def verify_page(request):
 
                 complete_customer_login(request.session)
 
-                # return redirect("dashboard") # change back when dashboard is created.
-                return redirect("home")
+                return redirect("dashboard")
 
             except ValueError as error:
                 form.add_error(None, str(error))
@@ -103,7 +102,6 @@ def verify_page(request):
         "authentication/verify.html",
         context,
     )
-
 
 def forgot_password_page(request):
     return render(request, "authentication/forgot_password.html")
